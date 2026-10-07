@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-palm-50: #ecfbff;
+  --color-palm-100: #d5f5fe;
+  --color-palm-200: #aeeafd;
+  --color-palm-300: #74dafb;
+  --color-palm-400: #30ccf9;
+  --color-palm-500: #2ba2f4;
+  --color-palm-600: #2666ef;
+  --color-palm-700: #202ee9;
+  --color-palm-800: #1a1fc0;
+  --color-palm-900: #1800ad;
+  --color-palm-950: #0d0a5c;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink-50: #f5f7ff;
+  --color-ink-100: #e8ecfb;
+  --color-ink-400: #8a93c2;
+  --color-ink-500: #5d6596;
+  --color-ink-700: #262c5c;
+  --color-ink-800: #141a45;
+  --color-ink-900: #0a0f33;
+  --color-ink-950: #050822;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-jakarta), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+  --animate-spin-reverse: spin-reverse 60s linear infinite;
+  --animate-pulse-glow: pulse-glow 5s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes spin-reverse {
+    to { transform: rotate(-360deg); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.08); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--color-palm-400) 0%, var(--color-palm-600) 55%, var(--color-palm-700) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-palm-gradient {
+  background-image: linear-gradient(120deg, var(--color-palm-400) 0%, var(--color-palm-600) 55%, var(--color-palm-700) 100%);
+}
+
+/* Soft glow blob without a blur filter (filters are expensive to repaint while scrolling).
+   Colour comes from the text colour, e.g. `glow text-palm-600/25`. */
+@utility glow {
+  background-image: radial-gradient(closest-side, currentColor, transparent);
+  pointer-events: none;
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(48 204 249 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(48 204 249 / 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-grid-light {
+  background-image:
+    linear-gradient(to right, rgb(38 102 239 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(38 102 239 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-900 antialiased;
+  }
+
+  ::selection {
+    @apply bg-palm-400/30 text-ink-950;
+  }
+}
+
+/* Scroll-reveal: elements start hidden and animate in when <Reveal> marks them visible. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
