@@ -1,22 +1,22 @@
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
-import { offices } from "@/lib/site";
+import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { offices, telHref, whatsappHref } from "@/lib/site";
 import { LiveClock } from "./LiveClock";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 export function Offices() {
   return (
-    <section id="offices" className="relative overflow-hidden bg-ink-50 py-24 sm:py-32">
+    <section id="office" className="relative overflow-hidden bg-ink-50 py-24 sm:py-32">
       <div aria-hidden className="glow absolute -top-20 -right-60 size-[46rem] text-palm-300/40" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Our office"
+          eyebrow="Contact our team"
           title={
             <>
-              Visit us in <span className="text-gradient">Dubai</span>
+              Visit us in <span className="text-gradient">{offices[0].city}</span>
             </>
           }
-          description="Meet our consultants and course advisors in person, or reach us by phone, email or WhatsApp."
+          description="Meet our team in person, or reach us by phone, email or WhatsApp."
         />
 
         {offices.map((office) => (
@@ -44,28 +44,30 @@ export function Offices() {
                   <p className="mt-2 text-ink-500">{office.role}</p>
 
                   <ul className="mt-8 space-y-4 text-sm">
-                    {office.address && (
-                      <li className="flex gap-3 text-ink-700">
-                        <MapPin className="mt-0.5 size-5 shrink-0 text-palm-600" />
-                        <span>
-                          {office.address.join(", ")}
-                          {office.mapUrl && (
-                            <a
-                              href={office.mapUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="mt-1.5 flex w-fit items-center gap-1 font-semibold text-palm-700 hover:text-palm-600"
-                            >
-                              Get directions <ArrowUpRight className="size-4" />
-                            </a>
-                          )}
-                        </span>
-                      </li>
-                    )}
+                    <li className="flex gap-3 text-ink-700">
+                      <MapPin className="mt-0.5 size-5 shrink-0 text-palm-600" />
+                      <span>
+                        {office.address.join(", ")}
+                        <a
+                          href={office.mapUrl ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.mapQuery)}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1.5 flex w-fit items-center gap-1 font-semibold text-palm-700 hover:text-palm-600"
+                        >
+                          Get directions <ArrowUpRight className="size-4" />
+                        </a>
+                      </span>
+                    </li>
                     <li>
-                      <a href={`tel:${office.phone.replace(/\s/g, "")}`} className="flex gap-3 text-ink-700 hover:text-palm-700">
+                      <a href={telHref(office.phone)} className="flex gap-3 text-ink-700 hover:text-palm-700">
                         <Phone className="size-5 shrink-0 text-palm-600" />
                         {office.phone}
+                      </a>
+                    </li>
+                    <li>
+                      <a href={whatsappHref(office.phone)} target="_blank" rel="noreferrer" className="flex gap-3 text-ink-700 hover:text-palm-700">
+                        <MessageCircle className="size-5 shrink-0 text-palm-600" />
+                        WhatsApp {office.phone}
                       </a>
                     </li>
                     <li>
@@ -80,19 +82,17 @@ export function Offices() {
               </article>
             </Reveal>
 
-            {office.mapQuery && (
-              <Reveal delay={120}>
-                <div className="h-full min-h-80 overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm">
-                  <iframe
-                    title={`Map of the PalmGate ${office.city} office`}
-                    src={`https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&output=embed`}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="block h-full min-h-80 w-full border-0 sm:min-h-96"
-                  />
-                </div>
-              </Reveal>
-            )}
+            <Reveal delay={120}>
+              <div className="h-full min-h-80 overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-sm">
+                <iframe
+                  title={`Map of the Palmgate ${office.city} office`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(office.mapQuery)}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="block h-full min-h-80 w-full border-0 sm:min-h-96"
+                />
+              </div>
+            </Reveal>
           </div>
         ))}
       </div>

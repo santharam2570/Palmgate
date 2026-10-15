@@ -1,35 +1,45 @@
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+import { CapabilityMarquee } from "@/components/CapabilityMarquee";
+import { CtaBand } from "@/components/CtaBand";
 import { Hero } from "@/components/Hero";
-import { Navbar } from "@/components/Navbar";
-import { Offices } from "@/components/Offices";
-import { Process } from "@/components/Process";
-import { SapCourse } from "@/components/SapCourse";
+import { HomeIntro } from "@/components/HomeIntro";
+import { Industries } from "@/components/Industries";
 import { Services } from "@/components/Services";
 import { Solutions } from "@/components/Solutions";
-import { TechMarquee } from "@/components/TechMarquee";
-import { WhyUs } from "@/components/WhyUs";
+import { WhyChoose } from "@/components/WhyChoose";
+import { pageMetadata } from "@/lib/seo";
+import { services } from "@/lib/services";
 import { offices, site } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Palmgate International UAE | Business Solutions",
+  description: site.description,
+  keywords: ["Business solutions UAE", "Palmgate International"],
+  path: "/",
+});
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: site.legalName,
+  slogan: site.tagline,
   url: site.url,
   email: site.email,
+  telephone: site.phone,
   description: site.description,
   sameAs: Object.values(site.social),
-  address: offices.filter((o) => o.address).map((o) => ({
+  address: offices.map((o) => ({
     "@type": "PostalAddress",
     addressLocality: o.city,
-    addressCountry: o.country,
+    addressCountry: "AE",
   })),
+  areaServed: "AE",
+  knowsAbout: services.map((s) => s.title),
   contactPoint: offices.map((o) => ({
     "@type": "ContactPoint",
     telephone: o.phone,
     email: o.email,
-    contactType: "sales",
-    areaServed: ["AE", "SA", "QA", "OM", "BH", "KW"],
+    contactType: "customer service",
+    areaServed: "AE",
   })),
 };
 
@@ -40,19 +50,14 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
       />
-      <Navbar />
-      <main className="flex-1">
-        <Hero />
-        <TechMarquee />
-        <Services />
-        <Solutions />
-        <SapCourse />
-        <WhyUs />
-        <Process />
-        <Offices />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <CapabilityMarquee />
+      <HomeIntro />
+      <Services />
+      <Solutions />
+      <WhyChoose />
+      <Industries />
+      <CtaBand />
     </>
   );
 }

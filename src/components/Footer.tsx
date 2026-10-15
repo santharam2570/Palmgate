@@ -1,8 +1,18 @@
 import { cacheLife } from "next/cache";
 import Image from "next/image";
+import Link from "next/link";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import mark from "@/assets/brand/palmgate-mark.png";
 import wordmark from "@/assets/brand/palmgate-wordmark.png";
-import { navLinks, offices, services, site } from "@/lib/site";
+import { services } from "@/lib/services";
+import { site, telHref, whatsappHref } from "@/lib/site";
+
+const companyLinks = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Industries We Serve", href: "/industries" },
+  { label: "Contact Us", href: "/contact" },
+];
 
 const socials = [
   {
@@ -36,6 +46,7 @@ export function Footer() {
               </div>
             </div>
             <p className="mt-6 max-w-xs text-sm leading-relaxed">{site.description}</p>
+            <p className="mt-4 font-display text-sm font-semibold text-palm-300">{site.tagline}</p>
             <ul className="mt-6 flex gap-3">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -58,42 +69,46 @@ export function Footer() {
           <FooterColumn title="Services">
             {services.map((s) => (
               <li key={s.id}>
-                <a href="#services" className="transition hover:text-palm-300">
-                  {s.title}
-                </a>
+                <Link href={s.href} className="transition hover:text-palm-300">
+                  {s.navLabel}
+                </Link>
               </li>
             ))}
           </FooterColumn>
 
           <FooterColumn title="Company">
-            {navLinks.map((l) => (
+            {companyLinks.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="transition hover:text-palm-300">
+                <Link href={l.href} className="transition hover:text-palm-300">
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
-            <li>
-              <a href="#contact" className="transition hover:text-palm-300">
-                Contact
-              </a>
-            </li>
           </FooterColumn>
 
-          <FooterColumn title="Get in touch">
-            {offices.map((o) => (
-              <li key={o.id} className="space-y-1">
-                <p className="font-semibold text-white">
-                  {o.city}, {o.country}
-                </p>
-                <a href={`tel:${o.phone.replace(/\s/g, "")}`} className="block transition hover:text-palm-300">
-                  {o.phone}
-                </a>
-                <a href={`mailto:${o.email}`} className="block transition hover:text-palm-300">
-                  {o.email}
-                </a>
-              </li>
-            ))}
+          <FooterColumn title="Contact our team">
+            <li className="flex gap-3">
+              <MapPin className="mt-0.5 size-4 shrink-0 text-palm-400" />
+              <span>
+                <span className="block font-semibold text-white">{site.legalName}</span>
+                {site.city}, {site.country}
+              </span>
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className="flex gap-3 transition hover:text-palm-300">
+                <Mail className="mt-0.5 size-4 shrink-0 text-palm-400" /> {site.email}
+              </a>
+            </li>
+            <li>
+              <a href={telHref(site.phone)} className="flex gap-3 transition hover:text-palm-300">
+                <Phone className="mt-0.5 size-4 shrink-0 text-palm-400" /> {site.phone}
+              </a>
+            </li>
+            <li>
+              <a href={whatsappHref(site.phone)} target="_blank" rel="noreferrer" className="flex gap-3 transition hover:text-palm-300">
+                <MessageCircle className="mt-0.5 size-4 shrink-0 text-palm-400" /> WhatsApp us
+              </a>
+            </li>
           </FooterColumn>
         </div>
 
@@ -103,7 +118,7 @@ export function Footer() {
           </p>
           <p className="flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-palm-gradient" />
-            {offices.map((o) => `${o.city}, ${o.country}`).join(" · ")}
+            {site.city}, {site.country}
           </p>
         </div>
       </div>

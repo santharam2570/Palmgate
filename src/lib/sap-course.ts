@@ -1,5 +1,5 @@
-// Copy, fees and trainer profiles for the SAP training programme.
-// Fees, schedules and trainer details are placeholders: confirm them before going live.
+// Copy and fees for the featured SAP programmes.
+// Fees and schedules are placeholders: confirm them before going live.
 
 export const sapTracks = [
   {
@@ -261,21 +261,21 @@ export const sapBatches = [
   { id: "fasttrack", label: "Fast-track", schedule: "Mon–Fri · 4 hrs a day", hoursPerWeek: 20 },
 ] as const;
 
-export const sapModes = ["Classroom – Dubai", "Live online"] as const;
+export const sapModes = ["Classroom – Ajman", "Live online"] as const;
 
 export const sapFeeIncludes = [
   "Live instructor-led sessions",
-  "24/7 S/4HANA sandbox access for 6 months",
+  "S/4HANA practice system access during the course",
   "Session recordings & course material",
   "Capstone project & certificate of completion",
-  "Interview prep & placement assistance",
+  "Interview preparation guidance",
 ];
 
 export const sapHighlights = [
-  { title: "Live S/4HANA sandbox", body: "Practise on a real SAP system around the clock, not just slides." },
-  { title: "Taught by consultants", body: "Trainers who deliver SAP projects for clients across the UAE and GCC." },
-  { title: "Small batches", body: "A maximum of 15 learners per batch, so every question gets answered." },
-  { title: "Placement support", body: "Resume reviews, mock interviews and referrals to our partner network." },
+  { title: "Hands-on practice", body: "Work through real business scenarios on an SAP system, not just slides." },
+  { title: "Business-process focus", body: "Understand how each module supports procurement, finance, sales and operations." },
+  { title: "Flexible batches", body: "Weekday, weekend and fast-track schedules, in the classroom or live online." },
+  { title: "Corporate programmes", body: "Customized SAP end-user and functional training for your teams." },
 ];
 
 export type SapTrainer = {
@@ -288,44 +288,8 @@ export type SapTrainer = {
   credentials: string[];
 };
 
-export const sapTrainers: SapTrainer[] = [
-  {
-    name: "Rajesh Narayanan",
-    role: "Lead SAP FICO Consultant",
-    years: 16,
-    location: "Dubai",
-    tracks: ["fico"],
-    bio: "Has led finance workstreams on more than 20 SAP implementations and S/4HANA conversions for manufacturing and retail groups.",
-    credentials: ["SAP Certified – S/4HANA Financial Accounting", "Chartered Accountant"],
-  },
-  {
-    name: "Sameer Khan",
-    role: "Senior SAP SD Consultant",
-    years: 12,
-    location: "Dubai",
-    tracks: ["sd"],
-    bio: "Designs order-to-cash solutions for trading and distribution companies across the UAE, Saudi Arabia and Qatar.",
-    credentials: ["SAP Certified – S/4HANA Sales", "VAT implementation specialist"],
-  },
-  {
-    name: "Priya Venkatesh",
-    role: "SAP MM & Supply Chain Consultant",
-    years: 11,
-    location: "Dubai",
-    tracks: ["mm"],
-    bio: "Specialises in procurement, inventory and warehouse processes, and has trained over 600 consultants and end users.",
-    credentials: ["SAP Certified – S/4HANA Sourcing & Procurement"],
-  },
-  {
-    name: "Arun Kumar",
-    role: "SAP ABAP & Fiori Architect",
-    years: 14,
-    location: "Dubai",
-    tracks: ["abap"],
-    bio: "Builds custom extensions, integrations and Fiori apps on S/4HANA, with a focus on clean-core development.",
-    credentials: ["SAP Certified – Back-End Developer, ABAP Cloud", "SAP Fiori developer"],
-  },
-];
+// Publish only verified trainer profiles with the trainer's permission; the section stays hidden while this is empty.
+export const sapTrainers: SapTrainer[] = [];
 
 export function formatAed(amount: number) {
   return `AED ${amount.toLocaleString("en-US")}`;

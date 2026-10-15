@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -10,32 +12,22 @@ const jetbrains = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["lati
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} International | ERP, CRM & Python Development in Dubai, UAE`,
-    template: `%s | ${site.name} International`,
+    default: "Palmgate International UAE | Business Solutions",
+    template: "%s | Palmgate International",
   },
   description: site.description,
-  keywords: [
-    "ERP software Dubai",
-    "CRM software UAE",
-    "Python development company",
-    "SharePoint consultants Dubai",
-    "full-stack development Dubai",
-    "Odoo implementation UAE",
-    "software company Dubai",
-    "SAP training Dubai",
-    "SAP FICO course Dubai",
-    "SAP S/4HANA course online",
-  ],
+  keywords: ["Business solutions UAE", "Palmgate International"],
+  applicationName: site.legalName,
   openGraph: {
     type: "website",
     siteName: site.legalName,
-    title: `${site.name} International | ${site.tagline}`,
+    title: "Palmgate International UAE | Business Solutions",
     description: site.description,
     locale: "en_AE",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} International`,
+    title: "Palmgate International UAE | Business Solutions",
     description: site.description,
   },
 };
@@ -46,12 +38,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${sora.variable} ${jetbrains.variable} h-full`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${jakarta.variable} ${sora.variable} ${jetbrains.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <noscript>
           <style>{`[data-reveal]{opacity:1;transform:none}`}</style>
         </noscript>
-        {children}
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

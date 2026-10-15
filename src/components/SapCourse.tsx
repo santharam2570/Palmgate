@@ -16,7 +16,7 @@ const coursesJsonLd = {
       "@type": "Course",
       name: t.title,
       description: t.summary,
-      url: `${site.url}/#sap-training`,
+      url: `${site.url}/training#sap-programmes`,
       provider: { "@type": "Organization", name: site.legalName, sameAs: site.url },
       offers: [{ "@type": "Offer", category: "Paid", price: t.fees.aed, priceCurrency: "AED" }],
       hasCourseInstance: [
@@ -34,7 +34,7 @@ const coursesJsonLd = {
 
 export function SapCourse() {
   return (
-    <section id="sap-training" className="relative overflow-hidden bg-white py-24 sm:py-32">
+    <section id="sap-programmes" className="relative scroll-mt-20 overflow-hidden bg-white py-24 sm:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(coursesJsonLd).replace(/</g, "\\u003c") }}
@@ -44,13 +44,13 @@ export function SapCourse() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="SAP Training"
+          eyebrow="Featured SAP programmes"
           title={
             <>
-              Become a job-ready <span className="text-gradient">SAP S/4HANA</span> consultant
+              Build practical skills in <span className="text-gradient">SAP S/4HANA</span>
             </>
           }
-          description="Hands-on SAP courses in Dubai and online, taught by consultants who implement SAP for a living. Pick a course to see the syllabus, schedule and fees."
+          description={`Structured SAP courses in ${site.city} and live online. Pick a course to see the syllabus, schedule and fees.`}
         />
 
         <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -71,9 +71,7 @@ export function SapCourse() {
         </ul>
 
         <div className="mt-20">
-          <SapCourseExplorer>
-            <SapTrainers />
-          </SapCourseExplorer>
+          <SapCourseExplorer>{sapTrainers.length > 0 && <SapTrainers />}</SapCourseExplorer>
         </div>
       </div>
     </section>
@@ -86,11 +84,9 @@ function SapTrainers() {
       <Reveal className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <p className="text-xs font-semibold tracking-[0.2em] text-palm-700 uppercase">Your trainers</p>
-          <h3 className="mt-3 font-display text-2xl font-bold text-ink-950 sm:text-3xl">Learn from consultants, not just instructors</h3>
+          <h3 className="mt-3 font-display text-2xl font-bold text-ink-950 sm:text-3xl">Meet your SAP trainers</h3>
         </div>
-        <p className="max-w-md text-ink-500">
-          Every trainer is a certified SAP consultant who still works on live client projects, so you learn how SAP is really used.
-        </p>
+        <p className="max-w-md text-ink-500">The professionals who lead our SAP programmes, and the modules they teach.</p>
       </Reveal>
 
       <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

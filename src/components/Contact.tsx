@@ -1,17 +1,23 @@
 import { CalendarCheck, FileText, MessageSquare } from "lucide-react";
+import { contactCopy } from "@/lib/company";
+import { enquiryTypes } from "@/lib/enquiry";
 import { site } from "@/lib/site";
-import { ContactForm } from "./ContactForm";
+import { EnquiryForm } from "./EnquiryForm";
 import { Reveal } from "./Reveal";
 
 const nextSteps = [
-  { icon: MessageSquare, title: "Free consultation", body: "A 30-minute call with a consultant to understand your goals." },
-  { icon: FileText, title: "Clear proposal", body: "Scope, timeline and a fixed quote within 3 business days." },
-  { icon: CalendarCheck, title: "Kick-off", body: "Your dedicated team starts building, with weekly demos." },
+  {
+    icon: MessageSquare,
+    title: "Share your requirements",
+    body: "Tell us about your hiring, project, training, outsourcing or education needs.",
+  },
+  { icon: FileText, title: "Requirement review", body: "Our team reviews your enquiry and identifies the appropriate service." },
+  { icon: CalendarCheck, title: "Next steps", body: "We get back to you to discuss scope, options and how to proceed." },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="relative isolate overflow-hidden bg-ink-950 py-24 sm:py-32">
+    <section id="enquiry" className="relative isolate scroll-mt-20 overflow-hidden bg-ink-950 py-24 sm:py-32">
       <div aria-hidden className="absolute inset-0 -z-10 bg-grid mask-radial opacity-60" />
       <div aria-hidden className="glow absolute -bottom-72 left-0 -z-10 size-[56rem] text-palm-600/30" />
       <div aria-hidden className="glow absolute -top-48 -right-40 -z-10 size-[40rem] text-palm-400/15" />
@@ -23,12 +29,18 @@ export function Contact() {
             Let&apos;s talk
           </span>
           <h2 className="mt-5 font-display text-4xl leading-[1.1] font-bold tracking-tight text-balance text-white sm:text-5xl">
-            Ready to open the <span className="text-gradient">gate</span> to your next system?
+            Ready to open the <span className="text-gradient">gate</span> to your next stage of growth?
           </h2>
-          <p className="mt-5 text-lg text-ink-400">
-            Tell us what you need. Whether it&apos;s a new ERP, a CRM rollout or a custom Python platform, we&apos;ll show you the
-            fastest path to get there.
-          </p>
+          <p className="mt-5 text-lg text-ink-400">{contactCopy.body[1]}</p>
+
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {contactCopy.audiences.map((a) => (
+              <li key={a.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <p className="font-display font-bold text-white">{a.title}</p>
+                <p className="mt-1 text-sm leading-relaxed text-ink-400">{a.body}</p>
+              </li>
+            ))}
+          </ul>
 
           <ol className="mt-10 space-y-6">
             {nextSteps.map((step, i) => (
@@ -58,9 +70,9 @@ export function Contact() {
         <Reveal delay={150}>
           <div className="relative">
             <div className="relative rounded-[2rem] bg-white p-6 shadow-[0_0_0_1px_rgb(48_204_249/0.35),0_0_60px_-8px_rgb(38_102_239/0.6)] sm:p-10">
-              <h3 className="font-display text-2xl font-bold text-ink-950">Request a free consultation</h3>
-              <p className="mt-1.5 mb-8 text-sm text-ink-500">Fill in the form and we&apos;ll be in touch within one business day.</p>
-              <ContactForm />
+              <h3 className="font-display text-2xl font-bold text-ink-950">Send us your enquiry</h3>
+              <p className="mt-1.5 mb-8 text-sm text-ink-500">Choose the option that fits your needs and our team will be in touch.</p>
+              <EnquiryForm types={enquiryTypes.map((t) => t.id)} grouped />
             </div>
           </div>
         </Reveal>

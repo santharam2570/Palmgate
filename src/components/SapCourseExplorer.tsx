@@ -24,7 +24,7 @@ const enrolSteps = [
   { title: "Confirm your batch", body: "Pay in full or in two instalments to lock in your seat." },
 ];
 
-export function SapCourseExplorer({ children }: { children: ReactNode }) {
+export function SapCourseExplorer({ children }: { children?: ReactNode }) {
   const [active, setActive] = useState<SapTrackId>("fico");
   const [formTrack, setFormTrack] = useState<SapTrackId>("fico");
   const [intent, setIntent] = useState<SapIntent>("register");
@@ -222,7 +222,7 @@ export function SapCourseExplorer({ children }: { children: ReactNode }) {
               Reserve your seat in the <span className="text-gradient">next batch</span>
             </h3>
             <p className="mt-4 text-ink-400">
-              Register now or send us your questions. Seats are limited to 15 per batch and fill up on a first-come basis.
+              Register your interest or send us your questions. Our training team will confirm batch availability and the next steps.
             </p>
 
             <ol className="mt-8 space-y-5">

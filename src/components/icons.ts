@@ -1,34 +1,49 @@
 import {
-  Boxes,
-  BrainCircuit,
+  Award,
   BriefcaseBusiness,
-  Building2,
-  Code2,
+  CalendarDays,
+  Cpu,
+  Earth,
   Factory,
-  FolderKanban,
   GraduationCap,
+  HardHat,
+  Handshake,
+  HeartHandshake,
   HeartPulse,
-  Hotel,
   Layers,
-  Rocket,
-  Server,
+  Lightbulb,
+  MonitorCog,
+  Network,
+  Presentation,
+  ShieldCheck,
   ShoppingBag,
+  Sparkles,
+  Target,
   Truck,
   Users,
-  Warehouse,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
-import type { ServiceId } from "@/lib/site";
+import type { Service } from "@/lib/services";
 
-export const serviceIcons: Record<ServiceId, LucideIcon> = {
-  erp: Boxes,
-  crm: Users,
-  sharepoint: FolderKanban,
-  python: Code2,
-  fullstack: Layers,
-  ai: BrainCircuit,
+export const serviceIcons: Record<Service["id"], LucideIcon> = {
+  training: Presentation,
+  it: MonitorCog,
+  hr: Users,
+  study: GraduationCap,
 };
 
-export const industryIcons: LucideIcon[] = [Warehouse, ShoppingBag, Factory, Building2, HeartPulse, Truck, GraduationCap, Hotel];
+export const industryIcons: Record<string, LucideIcon> = {
+  technology: Cpu,
+  manufacturing: Factory,
+  logistics: Truck,
+  healthcare: HeartPulse,
+  construction: HardHat,
+  retail: ShoppingBag,
+};
 
-export const sapHighlightIcons: LucideIcon[] = [Server, BriefcaseBusiness, Users, Rocket];
+export const valueIcons: LucideIcon[] = [ShieldCheck, HeartHandshake, Award, Lightbulb, Handshake, Earth];
+
+export const whyChooseIcons: LucideIcon[] = [Layers, Earth, Target, Network, Sparkles];
+
+export const sapHighlightIcons: LucideIcon[] = [Wrench, BriefcaseBusiness, CalendarDays, Users];
